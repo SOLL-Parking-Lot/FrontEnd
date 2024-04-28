@@ -1,6 +1,6 @@
 import KakaoMap from "../components/MainPageComponents/KakaoMap";
 import classes from "./MainPage.module.css";
-import Search from "../components/MainPageComponents/Search";
+import SearchTab from "../components/MainPageComponents/SearchTab";
 import { useGeoLocation } from "../hooks/useGeoLocation";
 
 const geolocationOptions = {
@@ -14,7 +14,7 @@ const MainPage = () => {
     const { location } = useGeoLocation(geolocationOptions);
     return (
         <>
-            <Search/>
+            <SearchTab/>
             {location && <KakaoMap location={location}/>}
         </>
 
