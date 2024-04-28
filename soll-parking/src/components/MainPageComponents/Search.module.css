@@ -1,0 +1,27 @@
+.container{
+    right: 70px;
+    top: 10px;
+    z-index: 3;
+    position: absolute;
+    padding: 0 30px;
+    width: 80%;
+    padding-bottom: 16px;
+}
+.input{
+    margin-left:40px;
+    border-radius:8px;
+    height: 40px;
+    width:100%;
+    font-size: 14px;
+    padding-left:35px;
+    border:none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.879);
+}
+.search_icon{
+    font-size:20px;
+    left:80px;
+    color:#333;
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+}

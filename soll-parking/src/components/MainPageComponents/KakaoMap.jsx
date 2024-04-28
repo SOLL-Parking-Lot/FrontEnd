@@ -27,7 +27,7 @@ const positions = [
     }
 ];
 
-const KakaoMap = () => {
+const KakaoMap = (props) => {
 
     const [ kakaoMap, setKakaoMap ] = useState();
 
@@ -46,11 +46,11 @@ const KakaoMap = () => {
     useEffect(() => {
         const container = document.getElementById('map');
         const options = {
-            center : new kakao.maps.LatLng(37.57340269,126.97588429),
+            center : new kakao.maps.LatLng(props.location.latitude,props.location.longitude),
             level : 3
         };
         const map = new kakao.maps.Map(container,options); 
-        const markerPosition  = new kakao.maps.LatLng(37.57340269,126.97588429); 
+        const markerPosition  = new kakao.maps.LatLng(props.location.latitude,props.location.longitude); 
 
         for (var i = 0; i < positions.length; i ++) {
     
