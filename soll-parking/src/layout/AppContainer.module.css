@@ -1,6 +1,7 @@
 .container{
     width:400px;
     height: 100%;
+    min-height: 600px;
     position:relative;
     margin:0 auto;
     background-color: white;

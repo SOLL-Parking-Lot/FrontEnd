@@ -1,0 +1,15 @@
+.link_container{
+    display: flex;
+    justify-content: center;
+    margin:20px 0;
+}
+.sign_up_link, .password_link, .main_link, .dash {
+    margin:0 5px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    color:#555;
+    font-size:14px;
+}
+.sign_up_link, .password_link, .main_link{
+    cursor: pointer;
+}

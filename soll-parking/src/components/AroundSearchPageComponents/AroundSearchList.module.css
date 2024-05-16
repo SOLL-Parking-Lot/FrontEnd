@@ -1,0 +1,31 @@
+.count{
+    width:90%;
+    margin:0 auto;
+    text-align: right;
+    color:#333;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size:13px;
+}
+.message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:16px;
+    color:red;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:20px 0;   
+}
+.parking_list{
+    padding:0 0 40px 0;
+    margin:0;
+}
+.item{
+    list-style:none;
+    width:90%;
+    margin:0 auto;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 2px 3px 4px #333;
+}

@@ -1,0 +1,58 @@
+.container{
+    padding:10px 20px;
+    margin:30px 0;
+    cursor: pointer;
+}
+.text{
+    width:70%;
+}
+.placeName{
+    font-size:20px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin-top:0;
+}
+.address, .phoneNumber{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size:13px;
+    word-break: keep-all;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:5px 0;
+}
+.header_container{
+    display: flex;
+}
+.logo{
+    margin-left:auto;
+}
+.logo_image{
+    width:100px;
+    border-radius: 20%;
+}
+.capacity{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top:1px solid #333;
+    margin-top:10px;
+    padding-top:10px;
+}
+.totalCapacity ,.currentCapacity{
+    width:50%;
+    margin:0 auto;
+    font-size:15px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+}
+.message{
+    font-size:12px;
+    color:red;
+    margin:3px 0 0 8px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+}

@@ -1,0 +1,64 @@
+.input_wrapper{
+    margin:20px 0;
+}
+.nickname_input, .email_input, .password_input, .password_check_input {
+    display:block;
+    height:45px;
+    padding:10px 10px;
+    border:1px solid #c4c4c4;
+    border-radius: 8px;
+    background-color:#fff;
+    color:#333;
+    font-size: 15px;
+    font-weight:bold;
+    font-family: "Noto Sans KR", sans-serif;
+    box-sizing:border-box;
+    width:80%;
+    margin:0 auto;
+}
+.nickname_input:focus{
+    border-color: #2F6087;
+    border-width: 1px;
+    outline: none;
+}
+.email_input:focus{
+    border-color: #2F6087;
+    border-width: 1px;
+    outline: none;
+}
+.password_input:focus{
+    border-color: #2F6087;
+    outline: none;
+}
+.password_check_input:focus{
+    border-color: #2F6087;
+    outline: none;
+}
+.button_container{
+    padding-top:30px;
+    width:90%;
+    margin:0 auto;
+    text-align: center;
+}
+.submit_button{
+    width:90%;
+    margin:0 auto;
+    cursor: pointer;
+    font-size:16px;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 10px;
+    background-color: #e4e5e9;
+    font-weight:500;
+    font-family: "Noto Sans KR", sans-serif;
+    color:#777;
+}
+.error_message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color : red;
+    font-size:12px;
+    font-weight:bold;
+    margin:0;
+}

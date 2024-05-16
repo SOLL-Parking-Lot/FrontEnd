@@ -1,0 +1,104 @@
+.container{
+    margin:30px 0;
+}
+.text{
+    width:60%;
+}
+.placeName{
+    text-align: left;
+    font-size:20px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin-top:0;
+    margin-bottom: 10px;
+}
+.address, .phoneNumber, .time, .price{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size:13px;
+    word-break: keep-all;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:5px 0;
+}
+.traffic_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(47, 96, 135);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color:white;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size:14px;
+    padding:0 20px;
+}
+.header_container{
+    padding:10px 20px;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button_container{
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    align-items: flex-end; /* 오른쪽 끝으로 정렬 */
+    height: 100%;
+    width:40%;
+}
+.detail_button, .route_button{
+    display:flex;
+    align-items: center; /* 가로 - 중앙으로 */
+    justify-content: center;
+    cursor: pointer;
+    margin:5px 0;
+    font-size:13px;
+    border: none;
+    width:100px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: rgb(47, 96, 135);
+    font-weight:500;
+    font-family: "Noto Sans KR", sans-serif;
+    color:white;
+}
+.capacity{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top:1px solid #333;
+    margin-top:10px;
+    padding:10px 0;
+}
+.totalCapacity ,.currentCapacity{
+    width:50%;
+    margin:0 auto;
+    font-size:15px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+}
+.message{
+    font-size:12px;
+    color:red;
+    margin:3px 0 0 8px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+}
+.traffic_time,.traffic_info{
+    width:50%;
+    text-align: center;
+}
+.car_time,.road_time, .car_price,.distance{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.arrow{
+    margin:0 5px;
+}
