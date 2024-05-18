@@ -29,8 +29,8 @@ const PlaceDetailContent = (props) => {
   }, []);
   const animationVariants = {
     initial: { opacity: 0, x: -50 },
-    animate: { opacity: 1, x: 0,},
-};
+    animate: { opacity: 1, x: 0 },
+  };
   return (
     <React.Fragment>
       <motion.ul
@@ -42,16 +42,16 @@ const PlaceDetailContent = (props) => {
         <motion.li className={classes.subContainer}>
           <p className={classes.subTitle}>
             주소
-            <TiArrowDownThick   className={classes.arrow} />
+            <TiArrowDownThick className={classes.arrow} />
           </p>
           <ul className={classes.contentContainer}>
-          <li className={classes.subContent}>경기도 과천시 막계동 33</li>
+            <li className={classes.subContent}>경기도 과천시 막계동 33</li>
           </ul>
         </motion.li>
         <motion.li className={classes.subContainer}>
           <p className={classes.subTitle}>
             운영시간
-            <TiArrowDownThick   className={classes.arrow} />
+            <TiArrowDownThick className={classes.arrow} />
           </p>
           <ul className={classes.contentContainer}>
             <li
@@ -68,7 +68,7 @@ const PlaceDetailContent = (props) => {
         <motion.li className={classes.subContainer}>
           <p className={classes.subTitle}>
             가격 및 이용권
-            <TiArrowDownThick   className={classes.arrow} />
+            <TiArrowDownThick className={classes.arrow} />
           </p>
           <ul className={classes.contentContainer}>
             <div className={classes.leftContentContainer}>
@@ -93,19 +93,25 @@ const PlaceDetailContent = (props) => {
         <motion.li className={classes.subContainer}>
           <p className={classes.subTitle}>
             주차장 정보
-            <TiArrowDownThick   className={classes.arrow} />
+            <TiArrowDownThick className={classes.arrow} />
           </p>
           <ul className={classes.contentContainer}>
-          <div className={classes.leftContentContainer}>
-          <li className={classes.subContent}>{`전화번호 :`}</li>
-          <li className={classes.subContent}>{`총 주차 구획 수 :`}</li>
-          <li className={classes.subContent}>{`주차장 구분 : `}</li>
+            <div className={classes.leftContentContainer}>
+              <li className={classes.subContent}>{`전화번호 :`}</li>
+              <li className={classes.subContent}>{`총 주차 구획 수 :`}</li>
+              <li className={classes.subContent}>{`주차장 구분 : `}</li>
             </div>
             <div className={classes.rightContentContainer}>
-            <li className={classes.subContent}>{`${detailContent.phoneNumber}`}</li>
-          <li className={classes.subContent}>{`${detailContent.totalParkingSpace}`}</li>
-          <li className={classes.subContent}>{`${detailContent.parkingType}`}</li>
-              </div>
+              <li
+                className={classes.subContent}
+              >{`${detailContent.phoneNumber}`}</li>
+              <li
+                className={classes.subContent}
+              >{`${detailContent.totalParkingSpace}`}</li>
+              <li
+                className={classes.subContent}
+              >{`${detailContent.parkingType}`}</li>
+            </div>
           </ul>
         </motion.li>
       </motion.ul>
