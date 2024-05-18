@@ -81,6 +81,7 @@ const AroundSearchList = (props) => {
                                     location={props.location} 
                                     item={item}/>
                             </motion.li>
+                            
                         )
                     })}
                 </motion.ul>
