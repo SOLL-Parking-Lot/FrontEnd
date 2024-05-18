@@ -47,8 +47,13 @@
   padding: 0 10px;
   margin-bottom: 1px;
 }
-.leftContentContainer,
+.leftContentContainer{
+  display: flex;
+  flex-direction: column;
+}
+
 .rightContentContainer {
   display: flex;
   flex-direction: column;
+  text-align: right;
 }
