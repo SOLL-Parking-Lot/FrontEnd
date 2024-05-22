@@ -11,6 +11,7 @@
     font-weight: bold;
     font-family: "Noto Sans KR", sans-serif;
     margin-top:0;
+    word-break: keep-all;
 }
 .address, .phoneNumber{
     display: flex;

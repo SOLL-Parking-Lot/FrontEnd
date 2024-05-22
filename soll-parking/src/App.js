@@ -8,6 +8,7 @@ import SignupPage from './page/SignupPage';
 import FindPasswordPage from './page/FIndPasswordPage';
 import FavoritePage from './page/FavoritePage';
 import AroundSearchPage from './page/AroundSearchPage';
+import CustomParkingPage from './page/CustomParkingPage';
 
 import LoginProvider from './store/LoginProvider';
 // Router를 통해 URL마다 페이지 제작
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path : '/around',
     element : <AroundSearchPage/>
+  },
+  {
+    path: '/custom',
+    element : <CustomParkingPage/>
   },
 
 ]);

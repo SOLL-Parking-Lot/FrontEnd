@@ -1,0 +1,51 @@
+.header {
+    width:90%;
+    margin:0 auto;
+    border-bottom: 1px solid #777;
+    padding:10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+}
+.header h3 {
+    flex-grow: 1; 
+    text-align: center; 
+    margin: 0; 
+    color:#2F6087;
+    font-weight:bold;
+    font-family: "Noto Sans KR", sans-serif;
+}
+.back_icon{
+    font-size:20px;
+    cursor: pointer;
+    position: absolute; 
+    left: 0;
+}
+.back_icon:hover{
+    color:#2F6087;
+}
+.description_container{
+    padding:20px 0;
+}
+.description{
+    font-weight: bold;
+    color:#2F6087;
+    font-size:13px;
+    text-align: center;
+}
+.link_container{
+    display: flex;
+    justify-content: center;
+}
+.list, .add{
+    color:#555;
+    font-weight: bold;
+    font-size:15px;
+    margin:0 20px;
+    cursor:pointer;
+}
+.active{
+    color: #d6812c;
+    text-decoration: underline;
+}

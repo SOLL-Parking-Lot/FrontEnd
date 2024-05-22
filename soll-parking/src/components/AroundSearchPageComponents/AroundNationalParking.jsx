@@ -11,13 +11,13 @@ import { MdNavigateNext } from "react-icons/md";
 
 const naverMapURL = 'http://map.naver.com/index.nhn?';
 
-const AroundSearch = (props) => {
+const AroundNationalParking = (props) => {
 
     const navigate = useNavigate();
     let startTime;
     let endTime;
 
-    const goPlaceDetailPage = () => {
+    const goPlaceDetailPage = (parkingInfo) => {
 
     };
 
@@ -67,20 +67,18 @@ const AroundSearch = (props) => {
                     <div className={classes.wrapper}>
                         <div className={classes.text}>
                             <p className={classes.address}><FaLocationDot style={{ marginRight : '5px'}}/>
-                                {props.item.type === "National" && <span>{props.item.parking.road_name_address.trim().length === 0 ? '주소 파악중입니다.' : props.item.parking.road_name_address}</span>}
-                                {props.item.type === "Seoul" && <span>{props.item.parking.address}</span>}
+                            <span>{props.item.parking.road_name_address.trim().length === 0 ? '주소 파악중입니다.' : props.item.parking.road_name_address}</span>
                             </p>
                             <p className={classes.phoneNumber}><FaPhoneAlt style={{ marginRight : '7px'}}/> <span>{props.item.parking.phone_number}</span></p>
                             <p className={classes.time}><IoIosTime style={{ marginRight : '7px'}}/> <span>{`${startTime} ~ ${endTime}`}</span></p>
                             <p className={classes.price}>
                                 <MdAttachMoney style={{ marginRight : '7px'}}/> 
-                                    {props.item.type === "National" && <span>{props.item.parking.fee_info} 입니다.</span>}
-                                    {props.item.type === "Seoul" && <span>{props.item.parking.basic_fee.trim().length !== 0 ? `${props.item.parking.basic_fee} 원` : `${props.item.parking.fee_type} 입니다`} </span>}
+                                    <span>{props.item.parking.fee_info} 입니다.</span>
                                 </p>
                         </div>
                         <div className={classes.button_container}>
                             <motion.button 
-                                onClick={goPlaceDetailPage}
+                                onClick={() => goPlaceDetailPage(props.item)}
                                 whileHover={{ scale : 1.1 }}
                                 className={classes.detail_button}>
                                     상세 정보 <MdNavigateNext style={{ marginLeft:'5px'}}/>
@@ -97,11 +95,11 @@ const AroundSearch = (props) => {
                 <div className={classes.capacity}>
                     <div className={classes.totalCapacity}># 전체 주차면 <br/> {props.item.parking.total_parking_space}면</div>
                     <div className={classes.dash}>|</div>
-                    <div className={classes.currentCapacity}># 주차 가능면 <br/> {props.item.currentParking ? `${props.item.currentParking.current_capacity}면` : <p className={classes.message}>현재 데이터가 없습니다.</p>}</div>
+                    <div className={classes.currentCapacity}># 주차 가능면 <br/> <p className={classes.message}> 현재 데이터가 없습니다.</p></div>
                 </div>
             </div>
         </React.Fragment>
     )
 };
 
-export default AroundSearch;
+export default AroundNationalParking;

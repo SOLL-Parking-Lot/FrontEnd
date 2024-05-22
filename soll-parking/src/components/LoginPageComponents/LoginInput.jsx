@@ -6,6 +6,7 @@ import { MdError } from "react-icons/md";
 import { login } from '../../api/AuthApiService';
 import loginContext from '../../store/login-context';
 import { useNavigate } from 'react-router-dom';
+import base64 from 'base-64';
 
 const LoginInput = () => {
 
@@ -46,19 +47,45 @@ const LoginInput = () => {
             setIsValid(false);
             return;
         }
-        loginCtx.loginUser({
-            memberId : 1,
-            nickname : "SOLL",
-            email : 'SOLL@dankook.ac.kr',
-            password : '1234'
+
+        login({ email, password })
+        .then(response => {
+           return response.data
+        }).then(
+            responseData => {
+                const accessToken = responseData.access_token;
+                const payload = accessToken.substring(accessToken.indexOf('.') + 1, accessToken.lastIndexOf('.'));
+                const decodePayload = base64.decode(payload);
+                const jsonToken = JSON.parse(decodePayload);
+
+                const nickname = jsonToken.nickname;
+                const email = jsonToken.sub;
+
+                localStorage.setItem("accessToken",accessToken);
+                loginCtx.loginUser({
+                    nickname,email
+                });
+                navigate('/');
+            }
+        )
+        .catch(error => {
+            if (error.response && error.response.status === 403) {
+                setIsValid(false);
+                setErrorMessage("로그인하신 회원정보가 없습니다.");
+                return;
+            } else {
+                setIsValid(false);
+                setErrorMessage("잠시 후에 다시 시도해주세요.");
+            }
         });
-        navigate('/');
     }
+
     const messageVariants = {
         initial : { opacity : 0, y : -30},
         animate : { opacity : 1, y : 0},
         exit : {opacity : 0, y : 50}
     }
+
     return (
         <div className={classes.input_container}>
             <div className={classes.input_wrapper}>

@@ -5,6 +5,8 @@ import SignupLinkTab from "./SignLinkTab";
 import { MdError } from "react-icons/md";
 import { signup } from "../../api/AuthApiService";
 import { emailValidation } from "../../api/AuthApiService";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SignupInput = () => {
 
@@ -14,6 +16,7 @@ const SignupInput = () => {
     const [passwordCheck,setPasswordCheck] = useState('');
     const [isValid,setIsValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const nickNameChangeHandler = (event) => {
         setIsValid(true);
@@ -48,6 +51,11 @@ const SignupInput = () => {
             setErrorMessage("닉네임을 입력해주세요.");
             return;
         }
+        if (nickName.trim().length > 6){
+            setIsValid(false);
+            setErrorMessage("닉네임은 6자리까지만 입력해주세요.");
+            return;
+        }
         if (!regex.test(email)){
             setErrorMessage("유효하지 않은 이메일입니다.");
             setIsValid(false);
@@ -63,7 +71,34 @@ const SignupInput = () => {
             setErrorMessage("비밀번호가 동일하지 않습니다.");
             return;
         }
+        signup({
+            nickname : nickName,
+            email,password
+        })
+        .then(response => {
+           return response.data
+        }).then(
+            responseData => {
+                Swal.fire({
+                    icon: 'success',                        
+                    title: '회원가입 완료',         
+                    html: '회원가입에 성공하셨습니다. <br> 로그인 페이지로 이동합니다.'
+                });
+                navigate('/login');
+            }
+        )
+        .catch(error => {
+            if (error.response && error.response.status === 403) {
+                setIsValid(false);
+                setErrorMessage("회원가입에 실패하였습니다. 다시 시도해주세요.");
+                return;
+            } else {
+                setIsValid(false);
+                setErrorMessage("잠시 후에 다시 시도해주세요.");
+            }
+        });
     }
+
     const messageVariants = {
         initial : { opacity : 0, y : -30},
         animate : { opacity : 1, y : 0},

@@ -17,7 +17,7 @@ const SearchPage = () => {
     };
 
     const searchAddressHandler = () => {
-
+        
     };
 
     const goMainPageHandler = () => {

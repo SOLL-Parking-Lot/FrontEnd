@@ -1,108 +1,128 @@
-import React,{ useEffect, useState } from "react";
+import React,{ useEffect, useState, useRef } from "react";
 import classes from "./KakaoMap.module.css";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa6";
 import parkingImage from "../../image/placeholder.png";
 import "./PlaceMarkOverlay.css";
+import { getParkingLotByLevel } from "../../api/ParkingLotApiService";
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
+import { useNavigate } from "react-router-dom";
+import LoadingModal from "../../layout/LoadingModal";
 
 const { kakao } = window;
 
-// dummy data
-const positions = [
-    {
-        title: '세종로공영주차장', 
-        latlng: new kakao.maps.LatLng(37.57342557,126.97593773)
-    },
-    {
-        title: '센터포인트광화문빌딩 주차장', 
-        latlng: new kakao.maps.LatLng(37.57306447, 126.97432677)
-    },
-    {
-        title: '대한민국역사박물관 주차장', 
-        latlng: new kakao.maps.LatLng(37.57398110, 126.97793753)
-    },
-    {
-        title: '적선동노외관광버스 주차장',
-        latlng: new kakao.maps.LatLng(37.57461984, 126.97399343)
-    }
-];
-
 const KakaoMap = (props) => {
 
-    const [ kakaoMap, setKakaoMap ] = useState();
+    const mapRef = useRef(kakao.maps.Map);
+    const defaultLevel = 5
+    const [level, setLevel] = useState(defaultLevel);
+    const [aroundParkingList,setAroundParkingList] = useState([]);
+    const [openIndices, setOpenIndices] = useState([]); 
+    const [isLoading,setIsLoading] = useState(true);
 
-    const mouseOverHandler = (customOverlay,map) => {
-        return function() {
-            customOverlay.setMap(map);
-        };
+    const toggleOverlay = (index) => {
+        if (openIndices.includes(index)) {
+          setOpenIndices(openIndices.filter(i => i !== index));
+        } else {
+          setOpenIndices([...openIndices, index]);
+        }
     };
 
-    const mouseOutHandler = (customOverlay) => {
-        return function() {
-            customOverlay.setMap(null);
-        };
+    const handleLevel = (type) => {
+        const map = mapRef.current
+        if (!map) return
+    
+        if (type === "increase") {
+          map.setLevel(map.getLevel() + 1)
+          setLevel(map.getLevel())
+        } else {
+            map.setLevel(map.getLevel() - 1)
+            setLevel(map.getLevel())
+        }
     }
+
+    const goDetailPlaceHandler = (parkingInfo) => {
+        console.log(parkingInfo);
+    };
     
     useEffect(() => {
-        const container = document.getElementById('map');
-        const options = {
-            center : new kakao.maps.LatLng(props.location.latitude,props.location.longitude),
-            level : 3
+        const getAroundParkingList = async () => {
+            setIsLoading(true);
+            const parkingResponse = await getParkingLotByLevel(props.location,level);
+            const parkingResponseData = await parkingResponse.data;
+            setAroundParkingList(parkingResponseData);
+            setIsLoading(false);
         };
-        const map = new kakao.maps.Map(container,options); 
-        const markerPosition  = new kakao.maps.LatLng(props.location.latitude,props.location.longitude); 
-
-        for (var i = 0; i < positions.length; i ++) {
-    
-            var imageSize = new kakao.maps.Size(39, 39); 
-            var markerImage = new kakao.maps.MarkerImage(parkingImage, imageSize); 
-            var marker = new kakao.maps.Marker({
-                map: map, 
-                position: positions[i].latlng, 
-                title : positions[i].title, 
-                image : markerImage 
-            });
-            var content = `
-            <div class="customoverlay">
-                <a>
-                <span class="title">${positions[i].title}</span>
-                </a>
-            </div>`;
-            var customOverlay = new kakao.maps.CustomOverlay({
-                position: positions[i].latlng, 
-                content: content,
-                yAnchor: 1 
-            });
-            kakao.maps.event.addListener(marker,'click', mouseOverHandler(customOverlay,map));
-            // kakao.maps.event.addListener(marker,'mouseout', mouseOutHandler(customOverlay,map));
-            marker.setMap(map);  
-        }
-        const centerMarker = new kakao.maps.Marker({
-            position: markerPosition
-        });
-        centerMarker.setMap(map);
-        setKakaoMap(map);
-    },[]);
-
-    const zoomInHandler = () => {
-        kakaoMap.setLevel(kakaoMap.getLevel() - 1,{animate: true});
-    };
-
-    const zoomOutHandler = () => {
-        kakaoMap.setLevel(kakaoMap.getLevel() + 1,{animate: true});
-    };
+        getAroundParkingList();
+    },[props.location, level]);
 
     return (
-        <div id='map' className={classes.container}> 
-            <div className={classes.button_container}>
-                <div className={classes.plus_box} onClick={zoomInHandler}>
-                    <FaPlus/>
-                </div> 
-                <div className={classes.minus_box} onClick={zoomOutHandler}>
-                    <FaMinus/>
-                </div>
-            </div>
-        </div>
+        <React.Fragment>
+            {!isLoading && (
+                    <Map
+                        id="map"
+                        className={classes.container}
+                        center={{
+                            lat: props.location.latitude,
+                            lng: props.location.longitude,
+                        }}
+                    
+                        level={level}
+                        zoomable={true}
+                        ref={mapRef}>
+                            <MapMarker
+                                position={{
+                                lat: props.location.latitude,
+                                lng: props.location.longitude,
+                                }}
+                            />
+                           {aroundParkingList.map((parkingData, index) => (
+                                <React.Fragment key={index}>
+                                <MapMarker
+                                    position={{
+                                        lat: parkingData.parking.latitude,
+                                        lng: parkingData.parking.longitude,
+                                    }}
+                                    image={{
+                                        src: parkingImage,
+                                        size: {
+                                            width: 39,
+                                            height: 39,
+                                        },
+                                    }}
+                                    clickable={true}
+                                    onClick={() => toggleOverlay(index)}
+                                />
+                                {openIndices.includes(index) && (
+                                    <CustomOverlayMap
+                                    position={{
+                                        lat: parkingData.parking.latitude,
+                                        lng: parkingData.parking.longitude,
+                                    }}
+                                    >
+                                    <div className="customoverlay">
+                                        <div onClick={() => toggleOverlay(index)} className='close'>X</div>
+                                        <p onClick={() => goDetailPlaceHandler(parkingData)}>
+                                        <span className="title">{parkingData.parking.parking_lot_name}</span>
+                                        <span className="capacity">{parkingData.currentParking ? `${parkingData.currentParking.current_capacity}대 주차가능합니다.` : '데이터를 준비중입니다.'}</span>
+                                        </p>
+                                    </div>
+                                    </CustomOverlayMap>
+                                )}
+                                </React.Fragment>
+                            ))}
+                    <div className={classes.button_container}>
+                        <div className={classes.plus_box} onClick={() => handleLevel("decrease")}>
+                            <FaPlus/>
+                        </div> 
+                        <div className={classes.minus_box} onClick={() => handleLevel("increase")}>
+                            <FaMinus/>
+                        </div>
+                    </div>
+                </Map>
+            )}
+            {isLoading && <LoadingModal/>}
+        </React.Fragment>
     )
 };
 

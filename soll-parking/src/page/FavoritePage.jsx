@@ -28,7 +28,7 @@ const FavoritePage = () => {
                     해당 주차장을 클릭하여 자세한 정보를 살펴보세요!
                 </p>
             </div>
-            {loginCtx.id && <FavoriteList memberId={loginCtx.id}/>}
+            {loginCtx.email && <FavoriteList/>}
         </React.Fragment>
 
     )

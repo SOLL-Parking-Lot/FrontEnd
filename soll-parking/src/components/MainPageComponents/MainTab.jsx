@@ -4,28 +4,16 @@ import { BsBookmarkStarFill } from "react-icons/bs";
 import { FaParking } from "react-icons/fa";
 import { FaSquarePlus } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { useContext } from "react";
-import loginContext from "../../store/login-context";
 
 const MainTab = (props) => {
 
     const navigate = useNavigate();
-    const loginCtx = useContext(loginContext);
-    const email = loginCtx.email;
-    const password = loginCtx.password;
 
-    const goAddParkingPage = () => {
-        if (email.trim().length === 0 || password.trim().length === 0){
-            navigate("/login");
-            return;
-        }
+    const goCustomParkingPage = () => {
+        navigate('/custom');
     };
 
     const goFavoritePage = () => {
-        if (email.trim().length === 0 || password.trim().length === 0){
-            navigate("/login");
-            return;
-        }
         navigate('/favorite');
     };
 
@@ -45,7 +33,7 @@ const MainTab = (props) => {
             <ul className={classes.button_container}>
                 <li key="me" className={classes.favorite}>
                         <motion.button
-                            onClick={goAddParkingPage}
+                            onClick={goCustomParkingPage}
                             whileHover={hoverEffect}>
                             <FaSquarePlus style={{ fontSize:'14px', marginRight:'5px'}}/>  주차장 추가
                         </motion.button>
