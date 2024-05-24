@@ -10,10 +10,6 @@ import PlaceDetailContent from "../components/PlaceDetailPageComponents/PlaceDet
 const PlaceDetailPage = () => {
   const navigate = useNavigate();
 
-  const goNearPlacePage = () => {
-    navigate("/near");
-  };
-
   const [searchParams] = useSearchParams();
 
   const latitude = searchParams.get("latitude");
@@ -41,7 +37,9 @@ const PlaceDetailPage = () => {
         <PlaceName />
       </div>
       <div>
-        <p className={classes.description}>마커를 움직여 주변 위치를 확인하세요!</p>
+        <p className={classes.description}>
+          마커를 움직여 주변 위치를 확인하세요!
+        </p>
         <RoadView location={location} />
       </div>
       <PlaceDetailContent location={location} />

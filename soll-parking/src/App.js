@@ -8,7 +8,6 @@ import SignupPage from './page/SignupPage';
 import FindPasswordPage from './page/FIndPasswordPage';
 import FavoritePage from './page/FavoritePage';
 import AroundSearchPage from './page/AroundSearchPage';
-
 import LoginProvider from './store/LoginProvider';
 import PlaceDetailPage from './page/PlaceDetailPage';
 // Router를 통해 URL마다 페이지 제작

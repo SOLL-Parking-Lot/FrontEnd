@@ -8,66 +8,59 @@ import { useContext } from "react";
 import loginContext from "../../store/login-context";
 
 const MainTab = (props) => {
+  const navigate = useNavigate();
+  const loginCtx = useContext(loginContext);
+  const email = loginCtx.email;
+  const password = loginCtx.password;
 
-    const navigate = useNavigate();
-    const loginCtx = useContext(loginContext);
-    const email = loginCtx.email;
-    const password = loginCtx.password;
-
-    const goAddParkingPage = () => {
-        if (email.trim().length === 0 || password.trim().length === 0){
-            navigate("/login");
-            return;
-        }
-    };
-
-    const goFavoritePage = () => {
-        if (email.trim().length === 0 || password.trim().length === 0){
-            navigate("/login");
-            return;
-        }
-        navigate('/favorite');
-    };
-
-    const goAroundSearchPage = () => {
-        const params = new URLSearchParams({
-            latitude : props.location.latitude,
-            longitude: props.location.longitude
-        }).toString();
-        navigate(`/around?${params}`);
-    };
-    
-    const hoverEffect = {
-        scale : 1.1
+  const goAddParkingPage = () => {
+    if (email.trim().length === 0 || password.trim().length === 0) {
+      navigate("/login");
+      return;
     }
-    return (
-        <div className={classes.container}>
-            <ul className={classes.button_container}>
-                <li key="me" className={classes.favorite}>
-                        <motion.button
-                            onClick={goAddParkingPage}
-                            whileHover={hoverEffect}>
-                            <FaSquarePlus style={{ fontSize:'14px', marginRight:'5px'}}/>  주차장 추가
-                        </motion.button>
-                </li>
-                <li key="favorite" className={classes.favorite}>
-                    <motion.button
-                        onClick={goFavoritePage}
-                        whileHover={hoverEffect}> 
-                        <BsBookmarkStarFill className={classes.favorite_icon}/> 즐겨 찾기
-                    </motion.button>
-                </li>
-                <li key="around" className={classes.around}>
-                    <motion.button
-                        onClick={goAroundSearchPage}
-                        whileHover={hoverEffect}>
-                        <FaParking className={classes.around_icon}/> 주변 탐색
-                    </motion.button>
-                </li>
-            </ul>
-        </div>
-    )
+  };
 
+  const goFavoritePage = () => {
+    if (email.trim().length === 0 || password.trim().length === 0) {
+      navigate("/login");
+      return;
+    }
+    navigate("/favorite");
+  };
+
+  const goAroundSearchPage = () => {
+    const params = new URLSearchParams({
+      latitude: props.location.latitude,
+      longitude: props.location.longitude,
+    }).toString();
+    navigate(`/around?${params}`);
+  };
+
+  const hoverEffect = {
+    scale: 1.1,
+  };
+  return (
+    <div className={classes.container}>
+      <ul className={classes.button_container}>
+        <li key="me" className={classes.favorite}>
+          <motion.button onClick={goAddParkingPage} whileHover={hoverEffect}>
+            <FaSquarePlus style={{ fontSize: "14px", marginRight: "5px" }} />{" "}
+            주차장 추가
+          </motion.button>
+        </li>
+        <li key="favorite" className={classes.favorite}>
+          <motion.button onClick={goFavoritePage} whileHover={hoverEffect}>
+            <BsBookmarkStarFill className={classes.favorite_icon} /> 즐겨 찾기
+          </motion.button>
+        </li>
+        <li key="around" className={classes.around}>
+          <motion.button onClick={goAroundSearchPage} whileHover={hoverEffect}>
+            <FaParking className={classes.around_icon} /> 주변 탐색
+          </motion.button>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
 export default MainTab;
