@@ -34,7 +34,7 @@ const SetTimeOutModal = ({ message, showModal, setShowModal }) => {
                 exit={{ opacity: 0, y: -50 }}
                 className={classes.modal_container}
               >
-                <p><FaCheckCircle style={{ marginBottom : '3px'}}/> {message}</p>
+                <p className={classes.flex_box}><FaCheckCircle style={{marginRight:'3px'}}/> {message}</p>
               </motion.div>
             )}
           </AnimatePresence>,portalElement)}

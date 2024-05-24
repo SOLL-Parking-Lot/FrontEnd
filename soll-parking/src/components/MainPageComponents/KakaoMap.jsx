@@ -1,4 +1,4 @@
-import React,{ useEffect, useState, useRef } from "react";
+import React,{ useEffect, useState, useRef, useContext } from "react";
 import classes from "./KakaoMap.module.css";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa6";
@@ -8,17 +8,23 @@ import { getParkingLotByLevel } from "../../api/ParkingLotApiService";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useNavigate } from "react-router-dom";
 import LoadingModal from "../../layout/LoadingModal";
+import Swal from "sweetalert2";
+import loginContext from '../../store/login-context';
 
 const { kakao } = window;
 
 const KakaoMap = (props) => {
 
+    
     const mapRef = useRef(kakao.maps.Map);
     const defaultLevel = 5
     const [level, setLevel] = useState(defaultLevel);
     const [aroundParkingList,setAroundParkingList] = useState([]);
     const [openIndices, setOpenIndices] = useState([]); 
     const [isLoading,setIsLoading] = useState(true);
+
+    const navigate = useNavigate();
+    const loginCtx = useContext(loginContext);
 
     const toggleOverlay = (index) => {
         if (openIndices.includes(index)) {
@@ -47,12 +53,25 @@ const KakaoMap = (props) => {
     
     useEffect(() => {
         const getAroundParkingList = async () => {
-            setIsLoading(true);
-            const parkingResponse = await getParkingLotByLevel(props.location,level);
-            const parkingResponseData = await parkingResponse.data;
-            console.log(parkingResponseData);
-            setAroundParkingList(parkingResponseData);
-            setIsLoading(false);
+          
+            try{
+                setIsLoading(true);
+                const parkingResponse = await getParkingLotByLevel(props.location,level);
+                const parkingResponseData = await parkingResponse.data;
+                
+                setAroundParkingList(parkingResponseData);
+                setIsLoading(false);
+            }catch(error){
+                Swal.fire({
+                    icon: 'warning',                        
+                    title: '로그인 만료',         
+                    html: `로그인이 만료되었습니다.<br> 다시 로그인 해주세요.`
+                });
+                loginCtx.logoutUser();
+                localStorage.removeItem("accessToken");
+                navigate('/login');
+            }
+            
         };
         getAroundParkingList();
     },[props.location, level]);

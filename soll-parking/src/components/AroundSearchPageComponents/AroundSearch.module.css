@@ -102,3 +102,54 @@
 .arrow{
     margin:0 5px;
 }
+.headaer_my{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:15px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+    margin:10px 0;
+}
+.text_my{
+    width:100%;
+}
+.custom_info{
+    display: flex;
+    align-items: center;
+    font-size:14px;
+    word-break: keep-all;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:5px 0;
+    padding:10px 0 0 0;
+}
+.description{
+    font-size:14px;
+    word-break: keep-all;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:0 0 0 19px;
+}
+.button_container_my{
+    display: flex;
+    justify-content: center;
+    margin:10px 0;
+}
+.route_button_my{
+    display:flex;
+    align-items: center; /* 가로 - 중앙으로 */
+    justify-content: center;
+    cursor: pointer;
+    margin:5px 0;
+    font-size:13px;
+    border: none;
+    width:90%;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: rgb(47, 96, 135);
+    font-weight:500;
+    font-family: "Noto Sans KR", sans-serif;
+    color:white;
+}

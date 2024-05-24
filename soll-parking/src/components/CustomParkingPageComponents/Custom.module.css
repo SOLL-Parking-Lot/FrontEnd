@@ -1,0 +1,59 @@
+.container{
+    padding:10px 20px;
+    margin:30px 0;
+}
+.text{
+    width:100%;
+}
+.placeName_container{
+    margin-bottom:20px ;
+}
+.cancel_icon{
+    font-size:25px;
+    margin-right: 0 auto;
+    cursor: pointer;
+    float: right;
+}
+.placeName{
+    font-size:20px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin-top:0;
+    word-break: keep-all;
+    margin-bottom: 0;
+    color:#2F6087;
+}
+.address, .phoneNumber, .fee_type{
+    font-size:14px;
+    word-break: keep-all;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:5px 0;
+    border-bottom: 1px solid #333;
+    padding:10px 0;
+}
+.custom_info{
+    display: flex;
+    align-items: center;
+    font-size:14px;
+    word-break: keep-all;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:5px 0;
+    padding:10px 0 0 0;
+}
+.description{
+    font-size:14px;
+    word-break: keep-all;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    margin:0 0 0 19px;
+}
+.message{
+    font-size:12px;
+    color:red;
+    margin:3px 0 0 8px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+}

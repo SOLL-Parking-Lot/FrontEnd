@@ -31,13 +31,17 @@ const CustomParkingPage = () => {
                 <IoIosArrowBack 
                     className={classes.back_icon}
                     onClick={goMainPageHandler}/>
-                <h3># Custom 주차장</h3>
+                <h3># 내 등록 주차장</h3>
             </div>
             <div className={classes.description_container}>
-                <p className={classes.description}>
-                    {loginCtx.nickname}님이 등록하신 Custom 주차장 목록입니다. <br/>
+                {isType === 0 && <p className={classes.description}>
+                    {loginCtx.nickname}님이 등록하신 주차장 목록입니다. <br/>
                     주차장을 등록하여 다른 사람에게도 공유해주세요!
-                </p>
+                </p>}
+                {isType === 1 && <p className={classes.description}>
+                    주차장을 등록하여 다른 사람에게도 공유해주세요! <br/>
+                    주차장 이름과 주차장 주소는 필수항목입니다.
+                </p>}
             </div>
             <div className={classes.link_container}>
                 <motion.p 
