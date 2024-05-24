@@ -30,6 +30,7 @@ const AroundSearchList = (props) => {
 
     return (
         <React.Fragment>
+<<<<<<< HEAD
             {!isLoading && (
                 <>
                     <p className={classes.count}>총 {aroundParkingLotList.length}개 존재 </p>
@@ -85,6 +86,31 @@ const AroundSearchList = (props) => {
                 </>
             )}
             {isLoading && <LoadingModal/>}
+=======
+            <p className={classes.count}>총 {aroundParkingLotList.length}개 존재 </p>
+            {aroundParkingLotList.length === 0 && <p className={classes.message}><RiErrorWarningFill style={{ marginRight:'5px'}}/> 근처의 주차장이 없습니다.</p>}
+            <div className={classes.list_container}>
+                <motion.ul
+                        variants={animationVariants}
+                        initial="initial"
+                        animate="animate"
+                        className={classes.parking_list}
+                    >
+                    {aroundParkingLotList.map(item => {
+                        return (
+                            <motion.li 
+                                className={classes.item}
+                                key={item.id}>
+                                <AroundSearch
+                                    location={props.location} 
+                                    item={item}/>
+                            </motion.li>
+                            
+                        )
+                    })}
+                </motion.ul>
+            </div>
+>>>>>>> 5d634bfd2e0a3e6cfe6f6fe6ac8582c3fe804386
         </React.Fragment>
 
     )

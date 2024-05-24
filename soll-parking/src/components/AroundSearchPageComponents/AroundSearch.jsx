@@ -18,7 +18,11 @@ const AroundSearch = (props) => {
     let endTime;
 
     const goPlaceDetailPage = () => {
-
+        const params = new URLSearchParams({
+            latitude : props.location.latitude,
+            longitude: props.location.longitude
+        }).toString();
+        navigate(`/detail?${params}`);
     };
 
     const goRouteDetailHandler = () => {

@@ -1,0 +1,59 @@
+.detailConetent {
+  list-style: none;
+  padding: 0 0 40px 0;
+}
+
+.subTitle {
+  display: flex;
+  justify-content: left;
+  background-color: rgb(47, 96, 135);
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 15px;
+  padding: 0 10px;
+  margin: 20px;
+}
+
+.arrow {
+  margin-top: 5px;
+  padding: 0 5px;
+  font-size: 18px;
+}
+.subContainer {
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 8px;
+  margin: 10px;
+  background-color: #f2f2f2;
+  box-shadow: 2px 3px 4px #333;
+}
+
+.contentContainer{
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  list-style: none;
+  margin: 10px;
+  background-color: white;
+  border-radius: 8px;
+}
+.subContent {
+  font-weight: bold;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 14px;
+  padding: 0 10px;
+  margin-bottom: 1px;
+}
+.leftContentContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.rightContentContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
