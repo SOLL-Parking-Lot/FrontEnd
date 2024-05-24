@@ -50,6 +50,7 @@ const KakaoMap = (props) => {
             setIsLoading(true);
             const parkingResponse = await getParkingLotByLevel(props.location,level);
             const parkingResponseData = await parkingResponse.data;
+            console.log(parkingResponseData);
             setAroundParkingList(parkingResponseData);
             setIsLoading(false);
         };
