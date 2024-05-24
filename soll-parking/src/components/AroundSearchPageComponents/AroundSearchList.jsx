@@ -1,60 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import classes from "./AroundSearchList.module.css";
-import AroundSearch from './AroundSearch';
 import { RiErrorWarningFill } from "react-icons/ri";
 import { motion } from "framer-motion";
-
-const demoInitialData = [
-    {
-        id : 1,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        currentParkingCapacity : '2',
-        phoneNumber : '010-2880-9266',
-        open : '02:00 ~ 24:00',
-        price : '7000'
-    },
-    {
-        id : 2,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        phoneNumber : '010-2880-9266',
-        open : '02:00 ~ 24:00',
-        price : '6500'
-    },
-    {
-        id : 3,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        currentParkingCapacity : '2',
-        phoneNumber : '010-2880-9266',
-        open : '02:00 ~ 24:00',
-        price : '10000'
-    },
-    {
-        id : 4,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        currentParkingCapacity : '2',
-        phoneNumber : '010-2880-9266',
-        open : '02:00 ~ 24:00',
-        price : '9000'
-    }
-]
+import { getAroundParkingLot } from '../../api/ParkingLotApiService';
+import LoadingModal from '../../layout/LoadingModal';
+import AroundNationalParking from './AroundNationalParking';
+import AroundSeoulParking from './AroundSeoulParking';
+import AroundCustomParking from './AroundCustomParking';
 
 const AroundSearchList = (props) => {
 
     const [aroundParkingLotList,setAroundParkingLotList] = useState([]);
+    const [isLoading,setIsLoading] = useState(true);
 
     useEffect(() => {
-        console.log(props.location);
-        // props.location의 좌표로 Rest api를 통해 백앤드 근처 주차장 데이터 가져옴
-        // 현재는 demo data
-        setAroundParkingLotList(demoInitialData);
+        const getAroundParkingList = async () => {
+            setIsLoading(true);
+            const parkingResponse = await getAroundParkingLot(props.location);
+            const parkingResponseData = await parkingResponse.data;
+            setAroundParkingLotList(parkingResponseData);
+            setIsLoading(false);
+        };
+        getAroundParkingList();
     },[]);
     const animationVariants = {
         initial: { opacity: 0, x: -50 },
@@ -63,6 +30,63 @@ const AroundSearchList = (props) => {
 
     return (
         <React.Fragment>
+<<<<<<< HEAD
+            {!isLoading && (
+                <>
+                    <p className={classes.count}>총 {aroundParkingLotList.length}개 존재 </p>
+                    {aroundParkingLotList.length === 0 && <p className={classes.message}><RiErrorWarningFill style={{ marginRight:'5px'}}/> 근처의 주차장이 없습니다.</p>}
+                    <div className={classes.list_container}>
+                        <motion.ul
+                                variants={animationVariants}
+                                initial="initial"
+                                animate="animate"
+                                className={classes.parking_list}
+                            >
+                            {aroundParkingLotList.map(item => {
+
+                                if (item.type === "National"){
+                                    return (
+                                        <motion.li
+                                            className={classes.item}
+                                            key={item.parking.id}>
+                                            <AroundNationalParking
+                                                location={props.location}
+                                                item={item}
+                                            />
+                                        </motion.li>
+                                    )
+                                }
+                                else if (item.type === "Seoul"){
+                                    return (
+                                        <motion.li className={classes.item}
+                                            key={item.parking.id}
+                                        >
+                                            <AroundSeoulParking
+                                                item={item}
+                                                location={props.location}
+                                            />
+                                        </motion.li>
+                                    )
+                                }
+                                else if (item.type === "Custom"){
+                                    return (
+                                        <motion.li 
+                                            key={item.parking.id}
+                                            className={classes.item}>
+                                                <AroundCustomParking 
+                                                    location={props.location}
+                                                    item={item}/>
+                                        </motion.li>
+                                    )
+                                }
+                                
+                            })}
+                        </motion.ul>
+                    </div>
+                </>
+            )}
+            {isLoading && <LoadingModal/>}
+=======
             <p className={classes.count}>총 {aroundParkingLotList.length}개 존재 </p>
             {aroundParkingLotList.length === 0 && <p className={classes.message}><RiErrorWarningFill style={{ marginRight:'5px'}}/> 근처의 주차장이 없습니다.</p>}
             <div className={classes.list_container}>
@@ -86,6 +110,7 @@ const AroundSearchList = (props) => {
                     })}
                 </motion.ul>
             </div>
+>>>>>>> 5d634bfd2e0a3e6cfe6f6fe6ac8582c3fe804386
         </React.Fragment>
 
     )

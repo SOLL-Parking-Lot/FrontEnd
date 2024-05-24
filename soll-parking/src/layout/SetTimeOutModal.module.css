@@ -1,0 +1,17 @@
+.modal_container {
+    position: fixed;
+    top: 0;
+    left: 40%;
+    padding: 20px;
+    background-color: #383a2e;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.modal_container p {
+    font-weight: bold;
+    font-size:18px;
+    color: rgb(248, 246, 246);
+    text-align: center;
+    margin-bottom: 0;
+}

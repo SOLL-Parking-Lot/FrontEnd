@@ -4,8 +4,6 @@ import { BsBookmarkStarFill } from "react-icons/bs";
 import { FaParking } from "react-icons/fa";
 import { FaSquarePlus } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { useContext } from "react";
-import loginContext from "../../store/login-context";
 
 const MainTab = (props) => {
   const navigate = useNavigate();
@@ -13,12 +11,63 @@ const MainTab = (props) => {
   const email = loginCtx.email;
   const password = loginCtx.password;
 
+<<<<<<< HEAD
+    const navigate = useNavigate();
+
+    const goCustomParkingPage = () => {
+        navigate('/custom');
+    };
+
+    const goFavoritePage = () => {
+        navigate('/favorite');
+    };
+
+    const goAroundSearchPage = () => {
+        const params = new URLSearchParams({
+            latitude : props.location.latitude,
+            longitude: props.location.longitude
+        }).toString();
+        navigate(`/around?${params}`);
+    };
+    
+    const hoverEffect = {
+        scale : 1.1
+    }
+    return (
+        <div className={classes.container}>
+            <ul className={classes.button_container}>
+                <li key="me" className={classes.favorite}>
+                        <motion.button
+                            onClick={goCustomParkingPage}
+                            whileHover={hoverEffect}>
+                            <FaSquarePlus style={{ fontSize:'14px', marginRight:'5px'}}/>  주차장 추가
+                        </motion.button>
+                </li>
+                <li key="favorite" className={classes.favorite}>
+                    <motion.button
+                        onClick={goFavoritePage}
+                        whileHover={hoverEffect}> 
+                        <BsBookmarkStarFill className={classes.favorite_icon}/> 즐겨 찾기
+                    </motion.button>
+                </li>
+                <li key="around" className={classes.around}>
+                    <motion.button
+                        onClick={goAroundSearchPage}
+                        whileHover={hoverEffect}>
+                        <FaParking className={classes.around_icon}/> 주변 탐색
+                    </motion.button>
+                </li>
+            </ul>
+        </div>
+    )
+=======
   const goAddParkingPage = () => {
     if (email.trim().length === 0 || password.trim().length === 0) {
       navigate("/login");
       return;
     }
   };
+>>>>>>> 5d634bfd2e0a3e6cfe6f6fe6ac8582c3fe804386
 
   const goFavoritePage = () => {
     if (email.trim().length === 0 || password.trim().length === 0) {

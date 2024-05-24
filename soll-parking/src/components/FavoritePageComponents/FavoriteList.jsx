@@ -9,16 +9,16 @@ const demoInitialData = [
         id : 1,
         placeName : '서울랜드',
         address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        currentParkingCapacity : '2',
-        phoneNumber : '010-2880-9266'
+        totalCapacity : '1256',
+        currentParkingCapacity : '381',
+        phoneNumber : '02-371-3753'
     },
     {
         id : 2,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        phoneNumber : '010-2880-9266'
+        placeName : '화서역파크푸르지오 아파트',
+        address : '경기도 수원시 대평로 27',
+        totalCapacity : '876',
+        phoneNumber : '031-245-9266'
     },
     {
         id : 3,
@@ -43,11 +43,10 @@ const FavoriteList = (props) => {
     const [favoriteList,setFavoriteList] = useState([]);
 
     useEffect(() => {
-        console.log(props.memberId);
         // props.memberId와 Rest api를 통해 백앤드에서 가져옴
         // 현재는 demo data
         setFavoriteList(demoInitialData);
-    },[props.memberId]);
+    },[]);
 
     const animationVariants = {
         initial: { opacity: 0, x: -50 },

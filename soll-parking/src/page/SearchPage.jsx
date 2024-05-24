@@ -114,11 +114,11 @@ const SearchPage = () => {
           onKeyDown={textKeyDownHandler}
           placeholder="목적지 또는 주소 검색"
         />
-
+            
         <div className={classes.icon_box}>
           <CiSearch onClick={searchHandler} className={classes.search_icon} />
-        </div>
       </div>
+</div>
       <div className={classes.resultContainer}>
         {/*백엔드와 연결하면 demoInitialData대신 result를 넣으면 됨 */}
         {demoInitialData.map((item, index) => (

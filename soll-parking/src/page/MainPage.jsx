@@ -1,8 +1,10 @@
 import KakaoMap from "../components/MainPageComponents/KakaoMap";
-import classes from "./MainPage.module.css";
 import SearchTab from "../components/MainPageComponents/SearchTab";
 import MainTab from "../components/MainPageComponents/MainTab";
 import { useGeoLocation } from "../hooks/useGeoLocation";
+import { useState, useEffect, useContext } from "react";
+import loginContext from "../store/login-context";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -13,13 +15,34 @@ const geolocationOptions = {
 const MainPage = () => {
 
     const { location } = useGeoLocation(geolocationOptions);
+    const [ currentLocation , setCurrentLocation] = useState(null);
+    const [ searchParams ] = useSearchParams();
+
+    const loginCtx = useContext(loginContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (loginCtx.email.trim().length === 0 || loginCtx.nickname.trim().length === 0){
+            navigate("/login");
+            return;
+        }
+        if (searchParams.get("latitude")){
+            setCurrentLocation({
+                latitude : searchParams.get('latitude'),
+                longitude : searchParams.get('longitude')
+            })
+            return;
+        }
+        if (location) {
+            setCurrentLocation(location);
+        }
+    }, [location]);
     return (
         <>
             <SearchTab/>
-            {location && <KakaoMap location={location}/>}
-            <MainTab location={location}/>
+            {currentLocation && <KakaoMap location={currentLocation}/>}
+            <MainTab location={currentLocation}/>
         </>
-
     );
 };
 
