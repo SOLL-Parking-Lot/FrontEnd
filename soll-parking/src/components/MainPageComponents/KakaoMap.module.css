@@ -3,6 +3,34 @@
     height:550px;
     border-radius: 12px;
 }
+.side_bar_container{
+    position: absolute;
+    left:20px;
+    text-align: center;
+    top: 100px;
+    z-index: 5;
+}
+.logout_wrapper, .current_wrapper, .search_wrapper{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.879);
+    margin:15px 0;
+}
+.logout_logo{
+    cursor: pointer;
+    font-size:20px;
+    margin-top: 5px;
+    margin-left: 3px;
+}
+.search_logo, .current_logo{
+    font-size:25px;
+    cursor: pointer;
+}
 .button_container{
     position: absolute;
     left:360px;

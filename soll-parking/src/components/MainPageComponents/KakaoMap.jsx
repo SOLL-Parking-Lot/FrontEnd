@@ -10,6 +10,15 @@ import { useNavigate } from "react-router-dom";
 import LoadingModal from "../../layout/LoadingModal";
 import Swal from "sweetalert2";
 import loginContext from '../../store/login-context';
+import { ImExit } from "react-icons/im";
+import { logout } from "../../api/AuthApiService";
+import SetTimeOutModal from "../../layout/SetTimeOutModal";
+import { motion } from "framer-motion";
+import { BiCurrentLocation } from "react-icons/bi";
+import { MdShareLocation } from "react-icons/md"
+import Post from "./Post";
+import Modal from "../../layout/Modal";
+import { getCoordinateByAddress } from "../../api/TmapApiService";
 
 const { kakao } = window;
 
@@ -22,6 +31,10 @@ const KakaoMap = (props) => {
     const [aroundParkingList,setAroundParkingList] = useState([]);
     const [openIndices, setOpenIndices] = useState([]); 
     const [isLoading,setIsLoading] = useState(true);
+    const [postPopup,setPostPopup] = useState(false);
+
+    const [showCheckModal, setShowCheckModal] = useState(false);
+    const [modalMessage,setModalMessage] = useState('');
 
     const navigate = useNavigate();
     const loginCtx = useContext(loginContext);
@@ -33,6 +46,47 @@ const KakaoMap = (props) => {
           setOpenIndices([...openIndices, index]);
         }
     };
+
+    const popupOverlay = () => {
+        setPostPopup(true);
+    };
+    const popupDown = () => {
+        setPostPopup(false);
+    };
+
+    const onComplete = async (data) =>{
+        let fullAddress = data.address;
+        let extraAddress = '';
+
+        if (data.addressType === 'R') {
+            if (data.bname !== '') {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== '') {
+                extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+            }
+            fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+        }
+        popupDown();
+        try{
+            const coordinateResponse = await getCoordinateByAddress(fullAddress);
+            const coordinateResponseData = await coordinateResponse.data;
+            const latitude = coordinateResponseData.longitude;
+            const longitude = coordinateResponseData.latitude;
+            props.onSet({
+                latitude,longitude
+            })
+        }catch(error){
+            Swal.fire({
+                icon: 'warning',                        
+                title: '로그인 만료',         
+                html: `로그인이 만료되었습니다.<br> 다시 로그인 해주세요.`
+            });
+            loginCtx.logoutUser();
+            localStorage.removeItem("accessToken");
+            navigate('/login');
+        }
+    }
 
     const handleLevel = (type) => {
         const map = mapRef.current
@@ -46,6 +100,27 @@ const KakaoMap = (props) => {
             setLevel(map.getLevel())
         }
     }
+
+    const goLogout = async () => {
+        try{
+            const logoutResponse = await logout();
+            const logoutResponseData = await logoutResponse.data;
+            if (logoutResponseData){
+                loginCtx.logoutUser();
+                localStorage.removeItem("accessToken");
+                navigate('/login');
+            }
+        }catch(error){
+            setShowCheckModal(true);
+            setModalMessage("다시 시도해주세요!");
+        }
+    };
+
+    const fetchCurrentLocation = () => {
+        setShowCheckModal(true);
+        setModalMessage("현재 위치로 이동하겠습니다.");
+        props.onFetch();
+    };
 
     const goDetailPlaceHandler = (parkingInfo) => {
         console.log(parkingInfo);
@@ -78,6 +153,14 @@ const KakaoMap = (props) => {
 
     return (
         <React.Fragment>
+            {postPopup && (
+                    <Modal 
+                        onClose={popupDown}>
+                        <Post onComplete={onComplete}/>
+                    </Modal>
+                )
+            }
+            <SetTimeOutModal message={modalMessage} showModal={showCheckModal} setShowModal={setShowCheckModal} />
             {!isLoading && (
                     <Map
                         id="map"
@@ -131,6 +214,26 @@ const KakaoMap = (props) => {
                                 )}
                                 </React.Fragment>
                             ))}
+                    <div className={classes.side_bar_container}>
+                        <motion.div 
+                            whileHover={{ scale : 1.1 }}
+                            onClick={fetchCurrentLocation}
+                            className={classes.current_wrapper}>
+                            <BiCurrentLocation className={classes.current_logo}/>
+                        </motion.div>
+                        <motion.div 
+                            whileHover={{ scale : 1.1 }}
+                            onClick={popupOverlay}
+                            className={classes.search_wrapper}>
+                            <MdShareLocation className={classes.search_logo}/>
+                        </motion.div>
+                        <motion.div 
+                            whileHover={{ scale : 1.1 }}
+                            onClick={goLogout}
+                            className={classes.logout_wrapper}>
+                            <ImExit className={classes.logout_logo}/>
+                        </motion.div>
+                    </div>
                     <div className={classes.button_container}>
                         <div className={classes.plus_box} onClick={() => handleLevel("decrease")}>
                             <FaPlus/>

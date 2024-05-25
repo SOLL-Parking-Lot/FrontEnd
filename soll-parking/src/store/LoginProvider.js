@@ -32,7 +32,7 @@ const LoginProvider = (props) => {
             email : email,
         })
     };
-    const logoutHandler = ({email,password}) => {
+    const logoutHandler = () => {
         dispatchUserAction({
             type : 'LOGOUT',
         })

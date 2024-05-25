@@ -21,6 +21,13 @@ const MainPage = () => {
     const loginCtx = useContext(loginContext);
     const navigate = useNavigate();
 
+    const fetchCurrentLocation = () => {
+        setCurrentLocation(location);
+    };
+    const setCoordinates = (tmapLocation) => {
+        setCurrentLocation(tmapLocation);
+    };
+
     useEffect(() => {
         if (loginCtx.email.trim().length === 0 || loginCtx.nickname.trim().length === 0){
             navigate("/login");
@@ -40,7 +47,7 @@ const MainPage = () => {
     return (
         <>
             <SearchTab/>
-            {currentLocation && <KakaoMap location={currentLocation}/>}
+            {currentLocation && <KakaoMap onSet={setCoordinates} onFetch={fetchCurrentLocation} location={currentLocation}/>}
             <MainTab location={currentLocation}/>
         </>
     );
