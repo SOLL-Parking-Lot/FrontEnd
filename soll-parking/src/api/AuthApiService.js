@@ -27,8 +27,6 @@ export const signup = (signUpRequest) => {
 };
 
 
-export const emailValidation = ({email}) => {
-    return apiClient.post(`/validation/${email}`,null, {
-
-    });
+export const emailValidation = (email) => {
+    return apiClient.get(`/validation/${email}`);
 };
