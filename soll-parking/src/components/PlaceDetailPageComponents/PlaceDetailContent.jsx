@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { TiArrowDownThick } from "react-icons/ti";
 import classes from "./PlaceDetailContent.module.css";
 import { motion } from "framer-motion";
+
 const PlaceDetailContent = (props) => {
-  // demo data
+  // 초기 데이터 설정
   const demoInitialData = {
     weekdayStartTime: "00",
     weekdayEndTime: "24",
@@ -19,27 +20,24 @@ const PlaceDetailContent = (props) => {
     totalParkingSpace: 120,
     parkingType: "공영",
   };
-  const [detailContent, setdetailContent] = useState("");
 
-  useEffect(() => {
-    console.log(props.location);
-    // props.location의 좌표로 Rest api를 통해 백앤드 근처 주차장 데이터 가져옴
-    // 현재는 demo data
-    setdetailContent(demoInitialData);
-  }, []);
+  const [detailData, setDetailData] = useState({});
+
+
   const animationVariants = {
     initial: { opacity: 0, x: -50 },
     animate: { opacity: 1, x: 0 },
   };
+
   return (
     <React.Fragment>
       <motion.ul
         variants={animationVariants}
         initial="initial"
         animate="animate"
-        className={classes.detailConetent}
+        className={classes.detailContent}
       >
-        <motion.li className={classes.subContainer}>
+        <motion.li className={classes.subContainer} key="address">
           <p className={classes.subTitle}>
             주소
             <TiArrowDownThick className={classes.arrow} />
@@ -48,24 +46,26 @@ const PlaceDetailContent = (props) => {
             <li className={classes.subContent}>경기도 과천시 막계동 33</li>
           </ul>
         </motion.li>
-        <motion.li className={classes.subContainer}>
+
+        <motion.li className={classes.subContainer} key="operating-hours">
           <p className={classes.subTitle}>
             운영시간
             <TiArrowDownThick className={classes.arrow} />
           </p>
           <ul className={classes.contentContainer}>
-            <li
-              className={classes.subContent}
-            >{`평일 : ${detailContent.weekdayStartTime}~${detailContent.weekdayEndTime}`}</li>
-            <li
-              className={classes.subContent}
-            >{`주말 : ${detailContent.weekendStartTime}~${detailContent.weekendEndTime}`}</li>
-            <li
-              className={classes.subContent}
-            >{`공휴일 : ${detailContent.holidayStartTime}~${detailContent.holidayEndTime}`}</li>
+            <li className={classes.subContent}>{`평일 : ${
+              detailData.weekdayStartTime
+            }~${detailData.weekdayEndTime}`}</li>
+            <li className={classes.subContent}>{`주말 : ${
+              detailData.weekendStartTime
+            }~${detailData.weekendEndTime}`}</li>
+            <li className={classes.subContent}>{`공휴일 : ${
+              detailData.holidayStartTime
+            }~${detailData.holidayEndTime}`}</li>
           </ul>
         </motion.li>
-        <motion.li className={classes.subContainer}>
+
+        <motion.li className={classes.subContainer} key="price-and-tickets">
           <p className={classes.subTitle}>
             가격 및 이용권
             <TiArrowDownThick className={classes.arrow} />
@@ -79,18 +79,14 @@ const PlaceDetailContent = (props) => {
             <div className={classes.rightContentContainer}>
               <li
                 className={classes.subContent}
-              >{`${detailContent.basicTime}당 ${detailContent.basicFee}원`}</li>
-              <li
-                className={classes.subContent}
-              >{`${detailContent.saturdayFeeType}`}</li>
-              <li
-                className={classes.subContent}
-              >{`${detailContent.holidayFeeType}`}</li>
+              >{`${detailData.basicTime}당 ${detailData.basicFee}원`}</li>
+              <li className={classes.subContent}>{`${detailData.saturdayFeeType}`}</li>
+              <li className={classes.subContent}>{`${detailData.holidayFeeType}`}</li>
             </div>
           </ul>
         </motion.li>
 
-        <motion.li className={classes.subContainer}>
+        <motion.li className={classes.subContainer} key="parking-info">
           <p className={classes.subTitle}>
             주차장 정보
             <TiArrowDownThick className={classes.arrow} />
@@ -102,15 +98,9 @@ const PlaceDetailContent = (props) => {
               <li className={classes.subContent}>{`주차장 구분 : `}</li>
             </div>
             <div className={classes.rightContentContainer}>
-              <li
-                className={classes.subContent}
-              >{`${detailContent.phoneNumber}`}</li>
-              <li
-                className={classes.subContent}
-              >{`${detailContent.totalParkingSpace}`}</li>
-              <li
-                className={classes.subContent}
-              >{`${detailContent.parkingType}`}</li>
+              <li className={classes.subContent}>{`${detailData.phoneNumber}`}</li>
+              <li className={classes.subContent}>{`${detailData.totalParkingSpace}`}</li>
+              <li className={classes.subContent}>{`${detailData.parkingType}`}</li>
             </div>
           </ul>
         </motion.li>

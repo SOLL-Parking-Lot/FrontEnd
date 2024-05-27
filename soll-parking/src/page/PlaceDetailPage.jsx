@@ -24,7 +24,7 @@ const PlaceDetailPage = () => {
   }).toString();
 
   const goAroundSearchPage = () => {
-    navigate(`/around?${params}`);
+    navigate(-1);
   };
 
   return (

@@ -46,6 +46,10 @@ const router = createBrowserRouter([
     path: '/custom',
     element : <CustomParkingPage/>
   },
+  {
+    path: '/detail',
+    element : <PlaceDetailPage/>
+  },
 
 ]);
 
