@@ -14,6 +14,8 @@ const SignupInput = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [passwordCheck,setPasswordCheck] = useState('');
+
+
     const [isValid,setIsValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
@@ -69,6 +71,14 @@ const SignupInput = () => {
         if (password !== passwordCheck){
             setIsValid(false);
             setErrorMessage("비밀번호가 동일하지 않습니다.");
+            return;
+        }
+
+        const response = await emailValidation(email.trim());
+        const responseData = await response.data;
+        if (responseData){
+            setIsValid(false);
+            setErrorMessage("이메일이 중복됩니다.");
             return;
         }
         signup({
