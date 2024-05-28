@@ -71,6 +71,7 @@
     font-weight:500;
     font-family: "Noto Sans KR", sans-serif;
     color:#777;
+    margin-bottom: 30px;
 }
 .error_message{
     display: flex;
