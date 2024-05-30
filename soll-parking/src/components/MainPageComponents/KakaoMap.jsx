@@ -122,8 +122,19 @@ const KakaoMap = (props) => {
         props.onFetch();
     };
 
-    const goDetailPlaceHandler = (parkingInfo) => {
-        console.log(parkingInfo);
+    const goDetailPlaceHandler = async (parkingInfo) => {
+        if (parkingInfo.type === "Custom"){
+            setShowCheckModal(true);
+            setModalMessage("나의 등록 주차장 입니다.");
+            return;
+        }
+        const params = new URLSearchParams({
+            latitude : parkingInfo.parking.latitude,
+            longitude : parkingInfo.parking.longitude,
+            parking : parkingInfo.parking,
+            type : parkingInfo.type
+        }).toString();
+        navigate(`/detail?${params}`);
     };
     
     useEffect(() => {

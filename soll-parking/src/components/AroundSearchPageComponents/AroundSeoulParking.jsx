@@ -18,7 +18,13 @@ const AroundSeoulParking = (props) => {
     let endTime;
 
     const goPlaceDetailPage = (parkingInfo) => {
-        
+        const params = new URLSearchParams({
+            latitude : parkingInfo.parking.latitude,
+            longitude : parkingInfo.parking.longitude,
+            parking :  parkingInfo.parking,
+            type : parkingInfo.type,
+        }).toString();
+        navigate(`/detail?${params}`);
     };
 
     const goRouteDetailHandler = () => {

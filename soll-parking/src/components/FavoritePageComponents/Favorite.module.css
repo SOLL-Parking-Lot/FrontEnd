@@ -1,6 +1,5 @@
 .container{
     padding:10px 20px;
-    margin:30px 0;
     cursor: pointer;
 }
 .text{
@@ -24,13 +23,16 @@
     margin:5px 0;
 }
 .header_container{
+    position: relative;
     display: flex;
 }
 .logo{
-    margin-left:auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 .logo_image{
-    width:100px;
+    width:70px;
     border-radius: 20%;
 }
 .capacity{

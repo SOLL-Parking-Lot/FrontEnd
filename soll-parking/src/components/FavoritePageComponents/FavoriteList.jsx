@@ -1,51 +1,74 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classes from "./FavoriteList.module.css";
-import Favorite from "./Favorite";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
+import loginContext from '../../store/login-context';
+import NationalFavorite from "./NationalFavorite";
+import SeoulFavorite from "./SeoulFavorite";
+import { getFavoriteList, deleteFavorite } from "../../api/FavoriteApiService";
+import SetTimeOutModal from '../../layout/SetTimeOutModal';
+import { TiDeleteOutline } from "react-icons/ti";
 
-const demoInitialData = [
-    {
-        id : 1,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '1256',
-        currentParkingCapacity : '381',
-        phoneNumber : '02-371-3753'
-    },
-    {
-        id : 2,
-        placeName : '화서역파크푸르지오 아파트',
-        address : '경기도 수원시 대평로 27',
-        totalCapacity : '876',
-        phoneNumber : '031-245-9266'
-    },
-    {
-        id : 3,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        currentParkingCapacity : '2',
-        phoneNumber : '010-2880-9266'
-    },
-    {
-        id : 4,
-        placeName : '서울랜드',
-        address : '경기도 과천시 막계동 33',
-        totalCapacity : '14',
-        currentParkingCapacity : '2',
-        phoneNumber : '010-2880-9266'
-    }
-]
-
-const FavoriteList = (props) => {
+const FavoriteList = () => {
 
     const [favoriteList,setFavoriteList] = useState([]);
+    const [isLoading,setIsLoading] = useState(true);
+    const [showCheckModal, setShowCheckModal] = useState(false);
+    const [modalMessage,setModalMessage] = useState('');
+
+    const navigate = useNavigate();
+    const loginCtx = useContext(loginContext);
+
+    const deleteFavoriteHandler = async (type, favoriteId) => {
+        try{
+            const deleteResponse = await deleteFavorite(type, favoriteId);
+            const deleteResponseData = await deleteResponse.data;
+            if (deleteResponseData){
+                setShowCheckModal(true);
+                setModalMessage("즐겨찾기 목록에서 삭제합니다.");
+            }else{
+                setShowCheckModal(true);
+                setModalMessage("다시 시도해주세요.");
+            }
+            fetchFavoriteListData();
+        }catch(error){
+            console.log(error);
+            Swal.fire({
+                icon: 'warning',                        
+                title: '로그인 만료',         
+                html: `로그인이 만료되었습니다.<br> 다시 로그인 해주세요.`
+            });
+            loginCtx.logoutUser();
+            localStorage.removeItem("accessToken");
+            navigate('/login');
+        }
+       
+    };
+
+    const fetchFavoriteListData = async () => {
+        try{
+            setIsLoading(true);
+            const favoriteResponse = await getFavoriteList();
+            const favoriteResponseData = await favoriteResponse.data;
+            console.log(favoriteResponseData);
+            setFavoriteList(favoriteResponseData);
+            setIsLoading(false);
+        }catch(error){
+            Swal.fire({
+                icon: 'warning',                        
+                title: '로그인 만료',         
+                html: `로그인이 만료되었습니다.<br> 다시 로그인 해주세요.`
+            });
+            loginCtx.logoutUser();
+            localStorage.removeItem("accessToken");
+            navigate('/login');
+        }
+    };
 
     useEffect(() => {
-        // props.memberId와 Rest api를 통해 백앤드에서 가져옴
-        // 현재는 demo data
-        setFavoriteList(demoInitialData);
+        fetchFavoriteListData();
     },[]);
 
     const animationVariants = {
@@ -55,28 +78,60 @@ const FavoriteList = (props) => {
     
     return (
         <React.Fragment>
+            <SetTimeOutModal message={modalMessage} showModal={showCheckModal} setShowModal={setShowCheckModal} />
             <p className={classes.count}>총 {favoriteList.length}건 등록</p>
-            {favoriteList.length === 0 && <p className={classes.message}><RiErrorWarningFill style={{ marginRight:'5px'}}/> 아직 등록된 즐겨찾기가 없습니다.</p>}
-            <div className={classes.list_container}>
-                <motion.ul
-                        variants={animationVariants}
-                        initial="initial"
-                        animate="animate"
-                        className={classes.favorite_list}
-                    >
-                    {favoriteList.map(item => {
-                        return (
-                            <motion.li 
-                                className={classes.item}
-                                key={item.id}>
-                                <Favorite item={item}/>
-                            </motion.li>
-                        )
-                    })}
-                </motion.ul>
-            </div>
+            {favoriteList.length === 0 && !isLoading && <p className={classes.message}><RiErrorWarningFill style={{ marginRight:'5px'}}/> 아직 등록된 즐겨찾기가 없습니다.</p>}
+            {!isLoading && (
+                 <div className={classes.list_container}>
+                    <motion.ul
+                            variants={animationVariants}
+                            initial="initial"
+                            animate="animate"
+                            className={classes.favorite_list}
+                        >
+                        {favoriteList.map(item => {
+                            if (item.type === "National"){
+                                return (
+                                    <div className={classes.container_wrapper} key={item.parking.id}>
+                                            <motion.div
+                                                className={classes.icon_wrapper}>
+                                                <TiDeleteOutline 
+                                                    className={classes.icon}
+                                                    onClick={() => deleteFavoriteHandler("National",item.favoriteId)}/>
+                                            </motion.div>
+                                        <motion.li 
+                                            className={classes.item}
+                                            key={item.parking.id}>
+                                            <NationalFavorite 
+                                                item={item}/>
+                                        </motion.li>
+                                    </div>
+                                    
+                                )
+                            }
+                            else if (item.type === "Seoul"){
+                                return (
+                                    <React.Fragment  key={item.parking.id}>
+                                        <motion.div
+                                                className={classes.icon_wrapper}>
+                                                <TiDeleteOutline 
+                                                    className={classes.icon}
+                                                    onClick={() => deleteFavoriteHandler("Seoul",item.favoriteId)}/>
+                                        </motion.div>
+                                        <motion.li 
+                                            className={classes.item}
+                                            key={item.parking.id}>
+                                            <SeoulFavorite 
+                                                item={item}/>
+                                        </motion.li>
+                                    </React.Fragment>
+                                )
+                            }
+                        })}
+                    </motion.ul>
+                </div>
+            )}
         </React.Fragment>
-
     )
 };
 
