@@ -19,6 +19,7 @@ import { MdShareLocation } from "react-icons/md"
 import Post from "./Post";
 import Modal from "../../layout/Modal";
 import { getCoordinateByAddress } from "../../api/TmapApiService";
+import { addFavorite } from "../../api/FavoriteApiService";
 
 const { kakao } = window;
 
@@ -125,7 +126,7 @@ const KakaoMap = (props) => {
     const goDetailPlaceHandler = async (parkingInfo) => {
         if (parkingInfo.type === "Custom"){
             setShowCheckModal(true);
-            setModalMessage("나의 등록 주차장 입니다.");
+            setModalMessage("내가 등록한 주차장 입니다.");
             return;
         }
         const params = new URLSearchParams({
