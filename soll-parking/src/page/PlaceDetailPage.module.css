@@ -4,20 +4,16 @@
   border-bottom: 1px solid #777;
   padding:10px 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  position: relative; 
 }
 
 .back_icon{
   font-size:20px;
   cursor: pointer;
-  position: absolute; 
-  left: 0;
 }
 .back_icon:hover{
   color:#2F6087;
-
 }
 
 .description_container{
@@ -28,4 +24,16 @@
   color:#2F6087;
   font-size:13px;
   text-align: center;
+}
+.emptybookMarkIcon{
+  font-size: 20px;
+  cursor: pointer;
+}
+.fillbookMarkIcon{
+  font-size: 20px;
+  cursor: pointer;
+  color: #ffe600;
+}
+.bookMarkIcon:hover{
+  color:#2F6087;
 }

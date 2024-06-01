@@ -21,7 +21,7 @@ const AroundSeoulParking = (props) => {
         const params = new URLSearchParams({
             latitude : parkingInfo.parking.latitude,
             longitude : parkingInfo.parking.longitude,
-            parking :  parkingInfo.parking,
+            parkingID :  parkingInfo.parking.id,
             type : parkingInfo.type,
         }).toString();
         navigate(`/detail?${params}`);

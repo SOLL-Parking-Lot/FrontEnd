@@ -52,7 +52,6 @@ const FavoriteList = () => {
             setIsLoading(true);
             const favoriteResponse = await getFavoriteList();
             const favoriteResponseData = await favoriteResponse.data;
-            console.log(favoriteResponseData);
             setFavoriteList(favoriteResponseData);
             setIsLoading(false);
         }catch(error){

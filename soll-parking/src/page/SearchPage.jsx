@@ -63,13 +63,16 @@ const SearchPage = () => {
         navigate('/');
     };
 
-    const goPlaceDetailPageHandler = (coordinate) => {
-        if (coordinate) {
-            const { latitude, longitude } = coordinate;
-            let url = `?latitude=${latitude}&longitude=${longitude}`;
-            navigate(`/detail${url}`);
-        }
-    };
+    const goPlaceDetailPageHandler = (coordinate, index) => {
+        const params = new URLSearchParams({
+            latitude : coordinate.latitude,
+            longitude : coordinate.longitude,
+            parkingID :  result[index].id,
+            type : result[index].type,
+        }).toString();
+        navigate(`/detail?${params}`);
+        };
+    
 
     return (
         <div className={classes.container}>
@@ -104,7 +107,7 @@ const SearchPage = () => {
                             className={classes.result}
                             key={`${item.id}-${index}`}
                             onClick={() =>
-                                goPlaceDetailPageHandler(coordinates[index])
+                                goPlaceDetailPageHandler(coordinates[index],index)
                             }
                         >
                             <div className={classes.placeName}>
