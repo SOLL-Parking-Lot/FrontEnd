@@ -111,7 +111,7 @@ const FavoriteList = () => {
                             }
                             else if (item.type === "Seoul"){
                                 return (
-                                    <React.Fragment  key={item.parking.id}>
+                                    <div className={classes.container_wrapper} key={item.parking.id}>
                                         <motion.div
                                                 className={classes.icon_wrapper}>
                                                 <TiDeleteOutline 
@@ -124,7 +124,7 @@ const FavoriteList = () => {
                                             <SeoulFavorite 
                                                 item={item}/>
                                         </motion.li>
-                                    </React.Fragment>
+                                    </div>
                                 )
                             }
                         })}

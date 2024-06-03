@@ -46,8 +46,7 @@
   font-family: "Noto Sans KR", sans-serif;
 }
 .result{
-    margin-bottom: 10px;
-    padding-left: 40px;
+    padding:10px 0 10px 40px;
     background-color: #fffefe;
     cursor: pointer;
 }
@@ -60,4 +59,18 @@
 .address {
     font-size: 13px;
     color: #888888;
+}
+.message{
+  font-weight: bold;
+  color:#2F6087;
+  text-align: center;
+  font-size:14px;
+  margin-top:40px;
+}
+.noResults{
+  text-align: center;
+  font-weight: bold;
+  color:red;
+  font-size: 14px;
+  margin-top:40px;
 }

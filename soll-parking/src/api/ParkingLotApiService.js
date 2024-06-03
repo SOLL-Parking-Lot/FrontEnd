@@ -14,7 +14,7 @@ export const getAroundParkingLot = (location) => {
         headers: { Authorization: `${grantType} ${accessToken}` },
     });
 };
-    
+
 export const getParkingLotByLevel = (location, level) => {
     const accessToken = localStorage.getItem("accessToken");
     const grantType = "Bearer";
@@ -29,7 +29,6 @@ export const getSearchParkingLot = (keyword) => {
     const accessToken = localStorage.getItem("accessToken");
     const grantType = "Bearer";
     return apiClient.get(`/search?keyword=${keyword}`, {
-        
         withCredentials: true,
         headers: { Authorization: `${grantType} ${accessToken}` },
     });
@@ -39,13 +38,9 @@ export const getDetailParkingLot = (parkingLotId, type) => {
     const accessToken = localStorage.getItem("accessToken");
     const grantType = "Bearer";
 
-    return apiClient.get(
-        `/detail`,
-        {
-            withCredentials: true,
-            params: { parkingLotId, type },
-            headers: { Authorization: `${grantType} ${accessToken}` },
-        }
-    );
+    return apiClient.get(`/detail`, {
+        withCredentials: true,
+        params: { parkingLotId, type },
+        headers: { Authorization: `${grantType} ${accessToken}` },
+    });
 };
-

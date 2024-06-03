@@ -1,13 +1,15 @@
 .modal_container {
     position: absolute;
     top: 0;
-    left:42%;
+    left:41%;
     padding: 15px;
     background-color: #885bc1;
     border-radius: 8px;
     z-index: 10;
 }
 .flex_box{
+    width:200px;
+    word-break: keep-all;
     display: flex;
     justify-content: center;
     align-items: center;

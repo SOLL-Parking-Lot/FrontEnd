@@ -14,7 +14,7 @@ const NationalFavorite = (props) => {
         const params = new URLSearchParams({
             latitude : props.item.parking.latitude,
             longitude : props.item.parking.longitude,
-            parking :  props.item.parking,
+            parkingID :  props.item.parking.id,
             type : props.item.type,
         }).toString();
         navigate(`/detail?${params}`);

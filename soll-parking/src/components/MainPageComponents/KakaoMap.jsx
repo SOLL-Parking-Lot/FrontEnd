@@ -19,7 +19,6 @@ import { MdShareLocation } from "react-icons/md"
 import Post from "./Post";
 import Modal from "../../layout/Modal";
 import { getCoordinateByAddress } from "../../api/TmapApiService";
-import { addFavorite } from "../../api/FavoriteApiService";
 
 const { kakao } = window;
 
@@ -132,7 +131,7 @@ const KakaoMap = (props) => {
         const params = new URLSearchParams({
             latitude : parkingInfo.parking.latitude,
             longitude : parkingInfo.parking.longitude,
-            parking : parkingInfo.parking,
+            parkingID : parkingInfo.parking.id,
             type : parkingInfo.type
         }).toString();
         navigate(`/detail?${params}`);

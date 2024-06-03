@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./RoadView.module.css";
+import SetTimeOutModal from "../../layout/SetTimeOutModal";
 
 const RoadView = ({ location }) => {
+
+  const [showCheckModal, setShowCheckModal] = useState(false);
+  const [modalMessage,setModalMessage] = useState('');
+
   useEffect(() => {
     const { kakao } = window;
 
@@ -62,7 +67,8 @@ const RoadView = ({ location }) => {
         if (panoId === null) {
           rvContainer.style.display = "none";
           map.relayout();
-          alert("근처에 로드뷰가 지원되지 않습니다. 마커를 옮겨주세요.");
+          setShowCheckModal(true);
+          setModalMessage("근처에 로드뷰가 지원되지 않습니다. 마커를 옮겨주세요.");
         } else {
           mapWrapper.style.width = "50%";
           map.relayout();
@@ -76,6 +82,7 @@ const RoadView = ({ location }) => {
 
   return (
     <div className={classes.mapWrap}>
+       <SetTimeOutModal message={modalMessage} showModal={showCheckModal} setShowModal={setShowCheckModal} />
       <div id="mapWrapper" className={classes.mapWrapper}>
         <div id="map" className={classes.map}></div>
       </div>

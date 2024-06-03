@@ -34,7 +34,17 @@ export const deleteFavorite = (type, favoriteId) => {
     });
 };
 
+export const getBookMark = (type, parkingId) => {
+    const accessToken = localStorage.getItem("accessToken");
+    const grantType = "Bearer";
 
-
-
-
+    return apiClient.get(
+        `/is-bookmark`,
+        {
+            withCredentials: true,
+            params: { type, parkingId },
+            headers: { Authorization: `${grantType} ${accessToken}` },
+        }
+    );
+};
+;
