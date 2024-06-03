@@ -9,11 +9,12 @@
   }
   
   .modal {
-    width: 400px !important;
+    width: 350px !important;
     position: fixed;
-    top:50px;
-    left:33%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top:150px;
     background-color: white;
     padding: 1rem;
     border-radius: 14px;

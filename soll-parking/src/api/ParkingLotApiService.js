@@ -44,3 +44,14 @@ export const getDetailParkingLot = (parkingLotId, type) => {
         headers: { Authorization: `${grantType} ${accessToken}` },
     });
 };
+
+export const getCurrentParkingLot = (address) => {
+    const accessToken = localStorage.getItem("accessToken");
+    const grantType = "Bearer";
+
+    return apiClient.get(`/current`, {
+        withCredentials: true,
+        params: { address },
+        headers: { Authorization: `${grantType} ${accessToken}` },
+    });
+};

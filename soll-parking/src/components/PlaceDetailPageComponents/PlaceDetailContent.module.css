@@ -13,7 +13,7 @@
   font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   padding: 5px 10px;
-  margin: 20px;
+  margin: 10px;
 }
 
 .arrow {
@@ -26,7 +26,7 @@
   border-style: solid;
   border-color: transparent;
   border-radius: 8px;
-  margin: 10px;
+  margin: 15px;
   background-color: #f2f2f2;
   box-shadow: 2px 3px 4px #333;
 }
