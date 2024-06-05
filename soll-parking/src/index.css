@@ -2,6 +2,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 
 .swal2-popup{
-    margin-right: 20px !important;
     width: 380px !important;
 }
