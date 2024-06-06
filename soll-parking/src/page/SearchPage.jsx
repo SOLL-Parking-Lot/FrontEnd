@@ -7,6 +7,7 @@ import {
     getDetailParkingLot,
     getSearchParkingLot,
 } from "../api/ParkingLotApiService";
+import { AnimatePresence, motion } from "framer-motion";
 
 const SearchPage = () => {
     const navigate = useNavigate();
@@ -46,6 +47,8 @@ const SearchPage = () => {
 
     const textChangeHandler = (event) => {
         const inputValue = event.target.value;
+        setResult([]);
+        setNoResults(false);
         setText(inputValue);
     };
 
@@ -62,6 +65,12 @@ const SearchPage = () => {
     const goMainPageHandler = () => {
         navigate('/');
     };
+
+    const messageVariants = {
+        initial : { opacity : 0, y : -30},
+        animate : { opacity : 1, y : 0},
+        exit : {opacity : 0, y : 50}
+    }
 
     const goPlaceDetailPageHandler = (coordinate, index) => {
         const params = new URLSearchParams({
@@ -96,29 +105,48 @@ const SearchPage = () => {
                     />
                 </div>
             </div>
+            <AnimatePresence>
+                {text.length === 0 && result.length === 0 && <motion.p  
+                        variants={messageVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"className={classes.message}>원하시는 주차장의 주소 혹은 주차장명을 입력해주세요!</motion.p>}
+            </AnimatePresence>
             <div className={classes.resultContainer}>
-                {noResults ? (
-                    <div className={classes.noResults}>
-                        검색 결과가 없습니다.
-                    </div>
-                ) : (
-                    result.map((item, index) => (
-                        <div
-                            className={classes.result}
-                            key={`${item.id}-${index}`}
-                            onClick={() =>
-                                goPlaceDetailPageHandler(coordinates[index],index)
-                            }
-                        >
-                            <div className={classes.placeName}>
-                                {item.parkinglot_name}
-                            </div>
-                            <div className={classes.address}>
-                                {item.address}
-                            </div>
-                        </div>
-                    ))
-                )}
+                <AnimatePresence>
+                    {noResults ? (
+                        <motion.div 
+                            variants={messageVariants}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            className={classes.noResults}>
+                            검색 결과가 없습니다. <br/>
+                            원하시는 주차장명 혹은 주소를 다시 입력해주세요.
+                        </motion.div>
+                    ) : (
+                        result.map((item, index) => (
+                            <motion.div
+                                variants={messageVariants}
+                                initial="initial"
+                                animate="animate"
+                                exit="exit"
+                                className={classes.result}
+                                key={`${item.id}-${index}`}
+                                onClick={() =>
+                                    goPlaceDetailPageHandler(coordinates[index],index)
+                                }
+                            >
+                                <div className={classes.placeName}>
+                                    {item.parkinglot_name}
+                                </div>
+                                <div className={classes.address}>
+                                    {item.address}
+                                </div>
+                            </motion.div>
+                        ))
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

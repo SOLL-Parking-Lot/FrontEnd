@@ -7,6 +7,7 @@ import RoadView from "../components/PlaceDetailPageComponents/RoadView";
 import PlaceDetailContent from "../components/PlaceDetailPageComponents/PlaceDetailContent";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { getBookMark, addFavorite, deleteFavorite } from "../api/FavoriteApiService";
+import SetTimeOutModal from "../layout/SetTimeOutModal";
 
 const PlaceDetailPage = () => {
     const navigate = useNavigate();
@@ -15,6 +16,10 @@ const PlaceDetailPage = () => {
     const [favoriteId, setFavoriteId] = useState(null);
     const [searchParams] = useSearchParams();
 
+    const [showCheckModal, setShowCheckModal] = useState(false);
+    const [modalMessage,setModalMessage] = useState('');
+
+    
     const latitude = searchParams.get("latitude");
     const longitude = searchParams.get("longitude");
     const location = { latitude, longitude };
@@ -30,6 +35,8 @@ const PlaceDetailPage = () => {
             const response = await addFavorite(parkingType, parkingId);
             setBookMark(true);
             setFavoriteId(response.data);
+            setShowCheckModal(true);
+            setModalMessage("즐겨찾기에 추가하였습니다!");
         } catch (error) {
             console.error("Failed to add bookmark:", error);
         }
@@ -40,6 +47,8 @@ const PlaceDetailPage = () => {
             await deleteFavorite(parkingType, favoriteId);
             setBookMark(false);
             setFavoriteId(null);
+            setShowCheckModal(true);
+            setModalMessage("즐겨찾기에 해제하였습니다!");
         } catch (error) {
             console.error("Failed to delete bookmark:", error);
         }
@@ -61,6 +70,7 @@ const PlaceDetailPage = () => {
 
     return (
         <React.Fragment>
+            <SetTimeOutModal message={modalMessage} showModal={showCheckModal} setShowModal={setShowCheckModal} />
             <div className={classes.header}>
                 <IoIosArrowBack
                     className={classes.back_icon}

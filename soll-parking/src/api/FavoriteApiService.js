@@ -48,7 +48,3 @@ export const getBookMark = (type, parkingId) => {
     );
 };
 ;
-
-
-
-

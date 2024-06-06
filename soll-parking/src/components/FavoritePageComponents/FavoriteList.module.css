@@ -35,6 +35,12 @@
 .icon_wrapper{
     position: relative;
 }
+.loading_message{
+    text-align: center;
+    color: #2F6087;
+    font-weight: bold;
+    font-size:14px;
+}
 .icon{
     color: #2F6087;
     z-index: 8;

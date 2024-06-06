@@ -77,6 +77,7 @@ const FavoriteList = () => {
     
     return (
         <React.Fragment>
+            {isLoading && <p className={classes.loading_message}> 데이터를 불러오는 중입니다.</p>}
             <SetTimeOutModal message={modalMessage} showModal={showCheckModal} setShowModal={setShowCheckModal} />
             <p className={classes.count}>총 {favoriteList.length}건 등록</p>
             {favoriteList.length === 0 && !isLoading && <p className={classes.message}><RiErrorWarningFill style={{ marginRight:'5px'}}/> 아직 등록된 즐겨찾기가 없습니다.</p>}
@@ -110,7 +111,7 @@ const FavoriteList = () => {
                             }
                             else if (item.type === "Seoul"){
                                 return (
-                                    <React.Fragment  key={item.parking.id}>
+                                    <div className={classes.container_wrapper} key={item.parking.id}>
                                         <motion.div
                                                 className={classes.icon_wrapper}>
                                                 <TiDeleteOutline 
@@ -123,7 +124,7 @@ const FavoriteList = () => {
                                             <SeoulFavorite 
                                                 item={item}/>
                                         </motion.li>
-                                    </React.Fragment>
+                                    </div>
                                 )
                             }
                         })}

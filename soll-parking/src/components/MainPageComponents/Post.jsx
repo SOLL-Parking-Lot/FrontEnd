@@ -1,5 +1,4 @@
 import React from "react";
-import classes from "./Post.module.css";
 import DaumPostcodeEmbed from "react-daum-postcode";
 
 const Post = (props) => {
@@ -9,10 +8,9 @@ const Post = (props) => {
      };
     
     return (
-        <div className={classes.modal}>
+        <div>
             <DaumPostcodeEmbed
                 theme={themeObj}
-                className={classes.postModal}
                 onComplete={props.onComplete} />
         </div>
     );

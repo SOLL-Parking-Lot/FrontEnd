@@ -1,13 +1,21 @@
 .modal_container {
-    position: absolute;
+    position: fixed;
+    width:200px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
     top: 0;
-    left:42%;
-    padding: 15px;
+    padding: 15px 10px;
     background-color: #885bc1;
     border-radius: 8px;
     z-index: 10;
 }
 .flex_box{
+    width:100%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    word-break: keep-all;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,5 +23,4 @@
     font-size:12px;
     color: rgb(248, 246, 246);
     text-align: center;
-    margin:0;
 }

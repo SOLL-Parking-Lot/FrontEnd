@@ -11,7 +11,13 @@ const SeoulFavorite = (props) => {
     const navigate = useNavigate();
 
     const goPlaceDetailPage = () => {
-
+        const params = new URLSearchParams({
+            latitude : props.item.parking.latitude,
+            longitude : props.item.parking.longitude,
+            parkingID :  props.item.parking.id,
+            type : props.item.type,
+        }).toString();
+        navigate(`/detail?${params}`);
     };
 
     const itemVariants = { borderRadius : '8px' , backgroundColor : '#2F6087', color:'white'};

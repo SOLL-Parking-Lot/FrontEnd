@@ -6,10 +6,6 @@ const SignupLinkTab = () => {
     
     const navigate = useNavigate();
 
-    const goMainPageHandler = () => {
-        navigate('/');
-    };
-
     const goLoginPageHandler = () => {
         navigate('/login');
     }
@@ -19,11 +15,6 @@ const SignupLinkTab = () => {
     };
     return (
         <div className={classes.link_container}>
-            <motion.p
-                onClick={goMainPageHandler}
-                whileHover={{ color:'#2F6087' }} 
-                className={classes.main_link}>메인화면</motion.p>
-            <p className={classes.dash}>|</p>    
             <motion.p
                 onClick={goLoginPageHandler}
                 whileHover={{ color:'#2F6087' }} 

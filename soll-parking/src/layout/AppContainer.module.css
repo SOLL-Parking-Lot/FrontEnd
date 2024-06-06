@@ -1,8 +1,23 @@
-.container{
-    width:400px;
-    height: 100%;
-    min-height: 812px;
-    position:relative;
-    margin:0 auto;
+.container {
+    width: 410px;
+    height:820px;
+    position: relative;
+    margin: 0 auto;
     background-color: white;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.overflow_container {
+    overflow-y: scroll; 
+}
+.container::-webkit-scrollbar {
+    width: 10px; 
+}
+.container::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: #2F6087;
+    border-radius: 10px;
+}
+.container::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }

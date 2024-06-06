@@ -109,7 +109,7 @@ const FindPasswordInput = () => {
                 Swal.fire({
                     icon: 'success',                        
                     title: '비밀번호 변경 완료',         
-                    html: '비밀번호를 변경하였습니다.. <br> 로그인 페이지로 이동합니다.'
+                    html: '비밀번호를 변경하였습니다. <br> 로그인 페이지로 이동합니다.',
                 });
                 navigate('/login');
             }else{
